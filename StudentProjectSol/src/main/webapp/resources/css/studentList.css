@@ -1,0 +1,31 @@
+@charset "UTF-8";
+
+div.menuDiv {
+	width: 800px;
+}
+
+div.menuDiv>div {
+	display: inline-block;
+}
+
+.selectDiv {
+	float: left;
+}
+
+.searchDiv {
+	float: right;
+}
+
+table {
+	width: 800px;
+	border: 1px solid black;
+}
+
+tr:nth-child(1) {
+	background: skyblue;
+	font-weight: bold;
+}
+
+td {
+	text-align: center;
+}

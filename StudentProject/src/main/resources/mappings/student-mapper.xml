@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 맵퍼파일 생성 후 반드시 sql-map-config.xml 파일에 mapper 등록해줘야 함 -->
+<mapper namespace="studentMapper">
+	<resultMap type="com.spring.biz.vo.StudentVO" id="student">
+		<result column="STU_NUM" 	property="stuNum"/>
+		<result column="STU_NAME" 	property="stuName"/>
+		<result column="STU_AGE" 	property="stuAge"/>
+		<result column="STU_ADDR" 	property="stuAddr"/>
+		<result column="CLASS_CODE" 	property="classCode"/>
+		<result column="CLASS_NAME" 	property="className"/>
+	</resultMap>
+	
+	
+	<select id="selectStudentList" resultMap="student">
+		SELECT STU_NUM
+			, STU_NAME
+			, STU_AGE
+			, STU_ADDR
+			, CLASS_CODE
+		FROM STUDENT_INFO
+		WHERE CLASS_CODE = #{classCode}
+		<if test="stuName != null and stuName != ''">
+			AND UPPER(STU_NAME) LIKE '%'||UPPER(#{stuName})||'%'
+		</if>
+	</select>
+	
+	<select id="selectClassInfo" resultMap="student">
+		SELECT CLASS_CODE
+			, CLASS_NAME
+		FROM CLASS_INFO
+	</select>
+	
+	<select id="selectStudent" resultMap="student">
+		SELECT STU_NUM
+			, STU_NAME
+			, STU_AGE
+			, STU_ADDR
+		FROM STUDENT_INFO 
+		WHERE STU_NUM = #{stuNum}
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 매퍼파일 생성 후 반드시 sql-map-config.xml 파일에 mapper 등록해줘야 함 -->
+<mapper namespace="studentMapper">
+	<resultMap type="com.spring.biz.vo.ClassVO" id="class">
+		<result column="CLASS_CODE" 	property="classCode" />
+		<result column="CLASS_NAME" 	property="className"/>
+	</resultMap>
+	
+	<resultMap type="com.spring.biz.vo.StudentVO" id="student">
+		<result column="STU_NUM" 		property="stuNum" />
+		<result column="STU_NAME" 		property="stuName"/>
+		<result column="STU_AGE" 		property="stuAge"/>
+		<result column="STU_ADDR" 		property="stuAddr"/>
+		<result column="CLASS_CODE" 	property="classCode"/>
+		<association  property="gradeVO" javaType="com.spring.biz.vo.GradeVO">
+			<result column="KOR_SCORE" 		property="korScore"/>
+			<result column="MATH_SCORE" 	property="mathScore"/>
+			<result column="ENG_SCORE" 		property="engScore"/>
+		</association>
+	</resultMap>
+	
+	<resultMap type="com.spring.biz.vo.GradeVO" id="grade">
+		<result column="GRADE_CODE" 	property="gradeCode" />
+		<result column="STU_NUM" 		property="stuNum"/>
+		<result column="KOR_SCORE" 		property="korScore"/>
+		<result column="MATH_SCORE" 	property="mathScore"/>
+		<result column="ENG_SCORE" 		property="engScore"/>
+	</resultMap>
+	
+	<select id="selectClassList" resultMap="class">
+		SELECT CLASS_CODE
+			, CLASS_NAME
+		FROM CLASS_INFO
+	</select>
+	
+	<select id="selectStudentList" resultMap="student">
+		SELECT STU_NUM
+			, STU_NAME
+			, STU_AGE
+			, STU_ADDR
+			, CLASS_CODE
+		FROM STUDENT_INFO
+		WHERE 1 = 1
+		<if test="classCode != 0">
+		AND CLASS_CODE = #{classCode}
+		</if>
+		
+		<if test="stuName != null and stuName != ''">
+		AND STU_NAME LIKE '%'||#{stuName}||'%'
+		
+		</if>
+		ORDER BY STU_NUM
+	</select>
+	
+	<select id="selectStudent" resultMap="student">
+		SELECT S.STU_NUM
+			, STU_NAME
+			, STU_AGE
+			, STU_ADDR
+			, KOR_SCORE
+			, MATH_SCORE
+			, ENG_SCORE
+		FROM STUDENT_INFO S, GRADE_INFO G
+		WHERE S.STU_NUM = G.STU_NUM(+)
+		AND S.STU_NUM = #{stuNum}
+	
+	</select>
+	
+	<insert id="saveScore">
+		MERGE INTO GRADE_INFO
+      	USING DUAL
+      	ON (STU_NUM = #{stuNum})
+      	WHEN MATCHED THEN
+        	UPDATE
+        		SET
+				KOR_SCORE = #{korScore}
+				, MATH_SCORE = #{mathScore}
+				, ENG_SCORE = #{engScore}
+			WHERE STU_NUM = #{stuNum}
+     	WHEN NOT MATCHED THEN
+        	INSERT (
+         		GRADE_CODE
+				, STU_NUM
+				, KOR_SCORE
+				, MATH_SCORE
+				, ENG_SCORE
+          ) VALUES (
+         		(SELECT (MAX(GRADE_CODE) + 1) FROM GRADE_INFO)
+				, #{stuNum}
+				, #{korScore}
+				, #{mathScore}
+				, #{engScore}
+          )
+			
+	</insert>
+	
+	<select id="selectScore" resultMap="grade">
+		SELECT KOR_SCORE
+			, ENG_SCORE
+			, MATH_SCORE
+			, STU_NUM
+		FROM GRADE_INFO
+		WHERE STU_NUM = #{stuNum}
+	</select>
+	
+	<insert id="insertStudent">
+		INSERT INTO STUDENT_INFO
+		(STU_NUM
+		, STU_NAME
+		, STU_AGE
+		, STU_ADDR
+		, CLASS_CODE
+		)VALUES(
+		(SELECT NVL((MAX(STU_NUM)+1),1) FROM STUDENT_INFO)
+		, #{stuName}
+		, #{stuAge}
+		, #{stuAddr}
+		, #{classCode}
+		)
+		
+	</insert>
+	
+	<delete id="deleteStudent">
+		DELETE STUDENT_INFO
+		WHERE STU_NUM = #{stuNum}
+	</delete>
+	
+	<delete id="deleteGrade">
+		DELETE GRADE_INFO
+		WHERE STU_NUM = #{stuNum}
+	</delete>
+	
+	<insert id="insertGrade">
+		INSERT INTO GRADE_INFO(
+				GRADE_CODE
+				, KOR_SCORE 
+				, ENG_SCORE 
+				, MATH_SCORE
+				, STU_NUM
+		)VALUES(
+		(SELECT NVL((MAX(GRADE_CODE)+1),1) FROM GRADE_INFO)
+		, #{korScore}
+		, #{engScore}
+		, #{mathScore}
+		, #{stuNum}
+		)
+		
+	</insert>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
