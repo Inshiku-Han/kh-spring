@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.spring.biz.vo.BuyVO;
+import com.spring.biz.vo.CartListVO;
+import com.spring.biz.vo.CartVO;
 import com.spring.biz.vo.CategoryVO;
 import com.spring.biz.vo.GoodsVO;
 import com.spring.biz.vo.ImageVO;
@@ -68,6 +70,16 @@ public class ShopServiceImpl implements ShopService{
 	@Override
 	public int updateIsConfirm(int orderNum) {
 		return sqlSession.update("updateIsConfirm", orderNum);
+	}
+
+	@Override
+	public int insertCart(CartVO cartVO) {
+		return sqlSession.insert("insertCart", cartVO);
+	}
+
+	@Override
+	public List<CartListVO> selectCartList(String memberId) {
+		return sqlSession.selectList("selectCartList", memberId);
 	}
 
 	

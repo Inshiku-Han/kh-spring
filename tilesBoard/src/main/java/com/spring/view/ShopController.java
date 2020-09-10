@@ -6,9 +6,11 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.biz.ShopService;
 import com.spring.biz.vo.BuyVO;
+import com.spring.biz.vo.CartVO;
 import com.spring.biz.vo.GoodsVO;
 import com.spring.biz.vo.MemberVO;
 
@@ -73,6 +75,29 @@ public class ShopController {
 		
 		return "redirect:shopList.sh"; //template.jsp
 	}
+	
+	//장바구니에 넣기
+	@ResponseBody
+	@RequestMapping(value = "/insertCart.sh")
+	public String insertCart(CartVO cartVO) {
+		
+		
+		return ""+shopService.insertCart(cartVO);
+	}
+	
+	//장바구니로 가기
+	@RequestMapping(value = "/cartList.sh")
+	public String cartList(HttpSession session, Model model) {
+		
+		model.addAttribute("cartList", 
+			shopService.selectCartList(
+				((MemberVO)session.getAttribute("loginInfo")).getMemberId()
+			)
+		);
+		return "shop/cartList";
+	}
+	
+	
 	
 }
 

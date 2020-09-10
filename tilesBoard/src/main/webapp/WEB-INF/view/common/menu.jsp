@@ -51,12 +51,13 @@ span:hover{
 		        <li <c:if test="${memberVO.mainMenu eq 'admin' }">class="active"</c:if>><a href="manageBuy.ad?mainMenu=admin&subMenu=manageBuy">관리자메뉴</a></li>
 	        <%-- </c:if> --%>
 	      </ul>
-	      <form class="navbar-form navbar-right" role="search">
+	      <div class="navbar-form navbar-right">
 	        <div class="form-group">
 	          <input type="text" class="form-control" placeholder="Search">
 	        </div>
-	        <button type="submit" class="btn btn-default">Submit</button>
-	      </form>
+	        <button type="submit" class="btn btn-default">Submit</button>&nbsp;&nbsp;
+	        <input type="button" class="btn btn-primary" value="장바구니" onclick="location.href='cartList.sh';">
+	      </div>
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
 	</nav>

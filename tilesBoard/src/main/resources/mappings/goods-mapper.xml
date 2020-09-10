@@ -48,6 +48,27 @@
 		<result column="BUY_DATE" 			property="buyDate"/>
 		<result column="IS_CONFIRM" 		property="isConfirm"/>
 	</resultMap>
+	
+	<resultMap type="com.spring.biz.vo.CartVO" id="cart">
+		<result column="CART_ID	"		property="cartId"/>
+		<result column="GOODS_ID"		property="goodsId"/>
+		<result column="MEMBER_ID"		property="memberId"/>
+		<result column="CREATE_DATE"	property="createDate"/>
+		<result column="GOODS_CNT" 		property="goodsCnt"/>
+		<result column="IS_DELETE" 		property="isDelete"/>
+	</resultMap>
+	
+	<resultMap type="com.spring.biz.vo.CartListVO" id="cartList">
+		<result column="CART_ID"		property="cartId"/>
+		<result column="FILE_NAME"		property="fileName"/>
+		<result column="GOODS_NAME"		property="goodsName"/>
+		<result column="MEMBER_ID"		property="memberId"/>
+		<result column="MEMBER_NAME"	property="memberName"/>
+		<result column="CREATE_DATE" 	property="createDate"/>
+		<result column="GOODS_PRICE" 	property="goodsPrice"/>
+		<result column="GOODS_CNT" 		property="goodsCnt"/>
+		<result column="TOTAL_PRICE" 	property="totalPrice"/>
+	</resultMap>
 
 	<select id="selectCategoryList" resultMap="category">
 		SELECT CATEGORY_CODE
@@ -190,6 +211,40 @@
 		SET IS_CONFIRM = 'Y'
 		WHERE ORDER_NUM = #{orderNum}
 	</update>
+	
+	
+	<insert id="insertCart">
+		INSERT INTO SHOPPING_CART(
+			CART_ID
+			, GOODS_ID
+			, MEMBER_ID
+			, GOODS_CNT
+		) VALUES (
+			'CART'||TO_CHAR(SYSDATE,'YYYYMMDDHH24MISS')
+			, #{goodsId}
+			, #{memberId}
+			, #{goodsCnt}			
+		)
+		
+	</insert>
+	
+	<select id="selectCartList" resultMap="cartList">
+		SELECT C.CART_ID 
+			, I.FILE_NAME
+		    , G.GOODS_NAME
+		    , M.MEMBER_ID
+		    , M.MEMBER_NAME
+		    , C.CREATE_DATE
+		    , G.GOODS_PRICE
+		    , C.GOODS_CNT
+		    , (G.GOODS_PRICE * C.GOODS_CNT) AS TOTAL_PRICE
+		FROM SHOPPING_CART C, SHOPPING_IMAGE I, SHOPPING_GOODS G, SHOPPING_MEMBER M
+		WHERE C.GOODS_ID = I.GOODS_ID
+		AND C.GOODS_ID = G.GOODS_ID
+		AND C.MEMBER_ID = M.MEMBER_ID
+		AND IMAGE_ID LIKE '%'||'1'
+		AND C.MEMBER_ID = #{memberId}
+	</select>
 	
 </mapper>
 

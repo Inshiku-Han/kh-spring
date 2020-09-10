@@ -3,6 +3,8 @@ package com.spring.biz;
 import java.util.List;
 
 import com.spring.biz.vo.BuyVO;
+import com.spring.biz.vo.CartListVO;
+import com.spring.biz.vo.CartVO;
 import com.spring.biz.vo.CategoryVO;
 import com.spring.biz.vo.GoodsVO;
 import com.spring.biz.vo.ImageVO;
@@ -38,6 +40,12 @@ public interface ShopService {
 	
 	//주문확인 버튼 변경
 	int updateIsConfirm(int orderNum);
+	
+	//카트에 넣기
+	int insertCart(CartVO cartVO);
+	
+	//카트리스트
+	List<CartListVO> selectCartList(String memberId);
 }
 
 

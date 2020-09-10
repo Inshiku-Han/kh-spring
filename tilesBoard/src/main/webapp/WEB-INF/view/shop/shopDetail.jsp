@@ -63,15 +63,15 @@
 						</div>
 						<div class="row">
 							<div class="form-group">
-								<label for="" class="col-md-3 control-label">수 량</label>
+								<label  class="col-md-3 control-label">수 량</label>
 								<div class="col-md-7">
-									<input type="number" class="form-control" id="" placeholder="" min="1" value="1">
+									<input type="number" class="form-control" placeholder="" min="1" value="1">
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-4 col-md-offset-2">
-								<input type="button" class="btn btn-info btn-block" value="장바구니 담기">
+								<input type="button" class="btn btn-info btn-block" value="장바구니 담기" id="cartBtn">
 							</div>
 							<div class="col-md-4">
 								<input type="button" class="btn btn-success btn-block" value="구매하기" id="buyBtn">
@@ -105,47 +105,45 @@
 				</button>
 				<h4 class="modal-title" id="myModalLabel">구매정보확인</h4>
 			</div>
-			<div class="modal-body">
-				<form class="form-horizontal" action="insertMember.me" method="post" id="joinForm">
-					<div class="form-group">
-						<label class="col-md-3 control-label">상품명</label>
-						<div class="col-md-9">
-							<p class="form-control-static">${goodsDetail.goodsName }</p>
-						</div>
+			<div class="modal-body form-horizontal">
+				<div class="form-group">
+					<label class="col-md-3 control-label">상품명</label>
+					<div class="col-md-9">
+						<p class="form-control-static">${goodsDetail.goodsName }</p>
 					</div>
-					<div class="form-group">
-						<label class="col-md-3 control-label">가 격</label>
-						<div class="col-md-9">
-							<p class="form-control-static" id="modalPrice">${goodsDetail.goodsPrice }</p>
-						</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">가 격</label>
+					<div class="col-md-9">
+						<p class="form-control-static" id="modalPrice">${goodsDetail.goodsPrice }</p>
 					</div>
-					<div class="form-group">
-						<label class="col-md-3 control-label">주문자</label>
-						<div class="col-md-9">
-							<p class="form-control-static">${sessionScope.loginInfo.memberId }(${sessionScope.loginInfo.memberName })</p>
-						</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">주문자</label>
+					<div class="col-md-9">
+						<p class="form-control-static">${sessionScope.loginInfo.memberId }(${sessionScope.loginInfo.memberName })</p>
 					</div>
-					<div class="form-group">
-						<label class="col-md-3 control-label">주소</label>
-						<div class="col-md-9">
-							<p class="form-control-static">${sessionScope.loginInfo.memberAddr }</p>
-						</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">주소</label>
+					<div class="col-md-9">
+						<p class="form-control-static">${sessionScope.loginInfo.memberAddr }</p>
 					</div>
-					<div class="form-group">
-						<label class="col-md-3 control-label">연락처</label>
-						<div class="col-md-9">
-							<p class="form-control-static">${sessionScope.loginInfo.tel1 }</p>
-						</div>
+				</div>
+				<div class="form-group">
+					<label class="col-md-3 control-label">연락처</label>
+					<div class="col-md-9">
+						<p class="form-control-static">${sessionScope.loginInfo.tel1 }</p>
 					</div>
-					<div class="row">
-						<div class="col-md-6">
-							<input type="button" class="btn btn-primary btn-block" value="구매하기" id="modalBuyBtn">
-						</div>
-						<div class="col-md-6">
-							<input type="button" class="btn btn-default btn-block" value="취소" id="modalCancelBtn">
-						</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6">
+						<input type="button" class="btn btn-primary btn-block" value="구매하기" id="modalBuyBtn">
 					</div>
-				</form>
+					<div class="col-md-6">
+						<input type="button" class="btn btn-default btn-block" value="취소" id="modalCancelBtn">
+					</div>
+				</div>
 			</div>
 		<!-- 	<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -155,7 +153,7 @@
 	</div>
 </div>
 
-<script src="resources/js/shopDetail.js?ver=14"></script>
+<script src="resources/js/shopDetail.js?ver=3"></script>
 </body>
 </html>
 
