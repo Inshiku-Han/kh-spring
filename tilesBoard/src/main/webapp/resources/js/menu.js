@@ -1,5 +1,6 @@
 /* 페이지 로딩 후 실행 */
 $(document).ready(function(){
+	
 	//logout 클릭 시...
 	$(document).on('click', '#logoutSpan', function() {
 		alert('로그아웃되었습니다.');
@@ -23,6 +24,14 @@ $(document).ready(function(){
 		$('#joinForm div.has-feedback').removeClass('has-success has-error has-feedback');
 		$('#joinForm span.glyphicon').remove();
 	});
+	
+	//장바구니 클릭 시...
+	$(document).on('click', '#goToCart', function() {
+
+		location.href = 'cartList.sh';
+	});
+	
+	
 });
 
 /* 함수선언 영역*/

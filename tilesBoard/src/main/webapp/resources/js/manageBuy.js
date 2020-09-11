@@ -3,8 +3,8 @@ $(document).ready(function(){
 	//주문확인버튼
 	$(document).on('click', '.confirmOrderBtn', function() {
 		
-		var orderNum = $(this).attr('data-orderNum');
-		var isConfirmTd = $(this).parent();
+		let orderNum = $(this).attr('data-orderNum');
+		let isConfirmTd = $(this).parent();
 		updateIsConfirm(orderNum, isConfirmTd);
 	});
 });
@@ -21,7 +21,7 @@ $(document).ready(function(){
 		$.ajax({
 			url: 'updateIsConfirm.ad', //요청경로
 			type: 'post',
-			data: {'orderNum' : orderNum
+			data: {"orderNum" : orderNum
 			}, //요청경로로 던질 파라메터. '파라메터명':파라메터
 			success: function(result) { // ajax 통신 성공 시 실행부분. result가 결과 데이터를 가진다.
 				var spanText = '<span style="color: red;">확인완료</span>';

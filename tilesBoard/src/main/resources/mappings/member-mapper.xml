@@ -67,6 +67,8 @@
 		AND MEMBER_PASSWORD = #{memberPassword}
 	</select>
 	
+	
+	
 </mapper>
 
 

@@ -33,6 +33,12 @@ label.error{
 .panel, .panel-heading{
 		border-radius: 20px;
 }
+
+.myContainer{
+	margin-left: auto;
+	margin-right: auto;
+	width: 70%;
+}
 </style>
 <script type="text/javascript">
 //validate에 정규식 사용하게 설정
@@ -43,18 +49,20 @@ $.validator.addMethod('regx', function(value, element, regexpr){
 </head>
 <body>
 <div style="height: 30px;"></div>
-<div class="container">
-	<div class="row">
-		<div class="col-md-12">
-			<tiles:insertAttribute name="menu" />
+<div class="container-fluid">
+	<div class="myContainer">
+		<div class="row">
+			<div class="col-md-12">
+				<tiles:insertAttribute name="menu" />
+			</div>
 		</div>
-	</div>
-	<div class="row">
-		<div class="col-md-2" style="padding: 0px;">
-			<tiles:insertAttribute name="side" />
-		</div>
-		<div class="col-md-10" id="bodyDiv">
-			<tiles:insertAttribute name="body" />
+		<div class="row">
+			<div class="col-md-2" style="padding: 0px;">
+				<tiles:insertAttribute name="side" />
+			</div>
+			<div class="col-md-10" id="bodyDiv">
+				<tiles:insertAttribute name="body" />
+			</div>
 		</div>
 	</div>
 </div>

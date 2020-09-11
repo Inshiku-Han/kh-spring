@@ -105,18 +105,18 @@
 										</tr>
 									</thead>
 									<tbody>
-									<c:forEach items="${buyList }" var="buyList">
+									<c:forEach items="${buyList }" var="buy">
 										<tr>
-											<td>${buyList.orderNum }</td>
-											<td>${buyList.orderId }</td>
-											<td>${buyList.memberId }</td>
-											<td>${buyList.buyDate }</td>
-											<td>${buyList.goodsName }</td>
-											<td>${buyList.orderPrice }</td>
+											<td>${buy.orderNum }</td>
+											<td>${buy.orderId }</td>
+											<td>${buy.memberId }</td>
+											<td>${buy.buyDate }</td>
+											<td>${buy.goodsName }</td>
+											<td>${buy.orderPrice }</td>
 											<td>
 												<c:choose>
-													<c:when test="${buyList.isConfirm eq 'N'}">
-														<input type="button" data-orderNum="${buyList.orderNum }" class="btn btn-danger btn-block confirmOrderBtn" value="주문확인">
+													<c:when test="${buy.isConfirm eq 'N'}">
+														<input type="button" data-orderNum="${buy.orderNum }" class="btn btn-danger btn-block confirmOrderBtn" value="주문확인">
 													</c:when>
 													<c:otherwise>
 														<span style="color: red;">확인완료</span>

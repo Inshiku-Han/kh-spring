@@ -56,13 +56,13 @@ th, td{
 										<col width="*">
 										<col width="15%">
 										<col width="15%">
-										<col width="2%">
-										<col width="6%">
-										<col width="10%">
+										<col width="9%">
+										<col width="9%">
+										<col width="7%">
 									</colgroup>
 									<thead>
 										<tr>
-											<th><input type="checkbox" id="allCheck"></th>
+											<th><input type="checkbox" id="allCheck" checked></th>
 											<th>번호</th>
 											<th>이미지</th>
 											<th>도서명</th>
@@ -74,17 +74,17 @@ th, td{
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach items="${cartList }" var="cartList" varStatus="status">
+										<c:forEach items="${cartList }" var="cart" varStatus="status">
 											<tr>
-												<td><input type="checkbox" class="severalCheck"></td>
+												<td><input type="checkbox" class="chk" checked value="${cart.cartId }"></td>
 												<td>${status.index + 1 }</td>
-												<td><img src="/upload/${cartList.fileName }" width="95%;"></td>
-												<td>${cartList.goodsName }</td>
-												<td>${cartList.memberId }(${cartList.memberName })</td>
-												<td>${cartList.createDate }</td>
-												<td>${cartList.goodsPrice }</td>
-												<td>${cartList.goodsCnt }</td>
-												<td class="someTotal">${cartList.totalPrice }</td>
+												<td><img src="/upload/${cart.fileName }" width="95%;"></td>
+												<td>${cart.goodsName }</td>
+												<td>${cart.memberId }(${cart.memberName })</td>
+												<td>${cart.createDate }</td>
+												<td>${cart.goodsPrice }</td>
+												<td>${cart.goodsCnt }</td>
+												<td class="someTotal">${cart.totalPrice }</td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -98,15 +98,14 @@ th, td{
 						</div>
 						<div class="panel-body">
 							<div class="form-horizontal text-right">
-								<h4><span id="totalPrice" style="font-weight: bold; color: red;">${goodsDetail.goodsPrice * cnt + goodsDetail.goodsDeliveryPrice }원</span></h4>
+								<span id="totalPrice" style="font-weight: bold; color: red; font-size: 24px;"></span>
+								<span style="font-weight: bold; color: red; font-size: 24px;">원</span>
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-md-12 text-center">
-							
-							<input type="button" id="buyBtn" class="btn btn-success" value="요것은 버튼">
-						</div>
+					<div class="col-md-12 text-center">
+						<input type="button" id="deleteCartBtn"  class="btn btn-success" value="장바구니 비우기">
+						<input type="button"  class="btn btn-success" value="구매하기">
 					</div>
 				</div>
 			</div><!-- 내용 패널 끝 -->		

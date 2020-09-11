@@ -46,6 +46,9 @@ public interface ShopService {
 	
 	//카트리스트
 	List<CartListVO> selectCartList(String memberId);
+	
+	//카트에서 빼기
+	void deleteCart(String[] cartIdArr);
 }
 
 

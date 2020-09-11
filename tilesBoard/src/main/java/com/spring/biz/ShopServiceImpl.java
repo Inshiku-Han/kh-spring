@@ -82,6 +82,11 @@ public class ShopServiceImpl implements ShopService{
 		return sqlSession.selectList("selectCartList", memberId);
 	}
 
+	@Override
+	public void deleteCart(String[] cartIdArr) {
+		sqlSession.delete("deleteCart", cartIdArr);
+	}
+
 	
 }
 

@@ -1,5 +1,6 @@
 package com.spring.biz.vo;
 
+
 public class CartVO extends BaseVO {
 	private String cartId;
 	private int goodsId;
@@ -44,12 +45,6 @@ public class CartVO extends BaseVO {
 	public void setIsDelete(String isDelete) {
 		this.isDelete = isDelete;
 	}
-	@Override
-	public String toString() {
-		return "CartVO [cartId=" + cartId + ", goodsId=" + goodsId + ", memberId=" + memberId + ", createDate="
-				+ createDate + ", goodsCnt=" + goodsCnt + ", isDelete=" + isDelete + "]";
-	}
-
 	
 	
 	

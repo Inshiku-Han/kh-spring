@@ -2,8 +2,10 @@ package com.spring.view;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import com.spring.biz.MemberService;
 import com.spring.biz.vo.MemberVO;
 
@@ -55,6 +57,8 @@ public class MemberController {
 	public String deleteMember(MemberVO memberVO) {
 		return "member/deleteMember"; 
 	}
+	
+	
 }
 
 

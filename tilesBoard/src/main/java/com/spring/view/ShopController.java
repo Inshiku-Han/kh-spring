@@ -1,5 +1,6 @@
 package com.spring.view;
 
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
@@ -97,7 +98,13 @@ public class ShopController {
 		return "shop/cartList";
 	}
 	
-	
+	//장바구니로 비우기
+	@RequestMapping(value = "/deleteCart.sh")
+	public String deleteCart(String[] cartIdArr) {
+		
+		shopService.deleteCart(cartIdArr);
+		return "redirect:cartList.sh";
+	}
 	
 }
 

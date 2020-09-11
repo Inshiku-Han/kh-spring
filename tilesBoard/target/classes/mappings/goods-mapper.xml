@@ -214,18 +214,25 @@
 	
 	
 	<insert id="insertCart">
-		INSERT INTO SHOPPING_CART(
-			CART_ID
-			, GOODS_ID
-			, MEMBER_ID
-			, GOODS_CNT
-		) VALUES (
-			'CART'||TO_CHAR(SYSDATE,'YYYYMMDDHH24MISS')
-			, #{goodsId}
-			, #{memberId}
-			, #{goodsCnt}			
-		)
-		
+		MERGE INTO SHOPPING_CART
+	    USING DUAL
+	    ON (GOODS_ID = #{goodsId} AND MEMBER_ID = #{memberId})
+	    WHEN MATCHED THEN
+	         UPDATE
+	         SET
+	         GOODS_CNT = GOODS_CNT + #{goodsCnt}
+	    WHEN NOT MATCHED THEN
+	         INSERT (
+	            CART_ID
+				, GOODS_ID
+				, MEMBER_ID
+				, GOODS_CNT
+	         ) VALUES (
+	           'CART'||TO_CHAR(SYSDATE,'YYYYMMDDHH24MISS')
+				, #{goodsId}
+				, #{memberId}
+				, #{goodsCnt}
+	         )
 	</insert>
 	
 	<select id="selectCartList" resultMap="cartList">
@@ -234,7 +241,7 @@
 		    , G.GOODS_NAME
 		    , M.MEMBER_ID
 		    , M.MEMBER_NAME
-		    , C.CREATE_DATE
+		    , TO_CHAR(C.CREATE_DATE, 'YYYY-MM-DD') AS CREATE_DATE
 		    , G.GOODS_PRICE
 		    , C.GOODS_CNT
 		    , (G.GOODS_PRICE * C.GOODS_CNT) AS TOTAL_PRICE
@@ -244,7 +251,17 @@
 		AND C.MEMBER_ID = M.MEMBER_ID
 		AND IMAGE_ID LIKE '%'||'1'
 		AND C.MEMBER_ID = #{memberId}
+		AND C.IS_DELETE = 'N'
 	</select>
+	
+	<delete id="deleteCart">
+		DELETE SHOPPING_CART
+		WHERE CART_ID IN
+		<foreach collection="array" item="cartId" open="(" close=")" separator=", " >
+			#{cartId}
+		</foreach>
+		
+	</delete>
 	
 </mapper>
 

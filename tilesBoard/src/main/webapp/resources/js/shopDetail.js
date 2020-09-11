@@ -43,7 +43,7 @@ $(document).ready(function(){
 			$.ajax({
 			      url: 'insertCart.sh', //요청경로
 			      type: 'post',
-			      data: { 'goodsId' : goodsIdFun(),'memberId' : loginId() ,'goodsCnt' : cntFun()
+			      data: { 'goodsId' : goodsIdFun(), 'memberId' : loginId(), 'goodsCnt' : cntFun()
 			                                           }, //요청경로로 던질 파라메터. '파라메터명':파라메터
 			      success: function(result) { // ajax 통신 성공 시 실행부분. result가 결과 데이터를 가진다.
 			    	  

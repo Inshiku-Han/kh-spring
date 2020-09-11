@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h3>회원탈퇴 페이지</h3>
+<h3>비밀번호를 입력해주세요</h3>
 </body>
 </html>

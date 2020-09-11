@@ -14,12 +14,13 @@ span:hover{
 </head>
 <body>
 <div class="row">
-	<div class="col-md-3 col-md-offset-9 text-right">
+	<div class="col-md-4 col-md-offset-8 text-right">
 		<c:if test="${empty sessionScope.loginInfo }">
 			<span data-toggle="modal" data-target="#loginModal">Login</span>&nbsp;&nbsp;<span data-toggle="modal" data-target="#joinModal">Join</span>
 		</c:if>
 		<c:if test="${not empty sessionScope.loginInfo }">
-			${sessionScope.loginInfo.memberName }님 반갑습니다.&nbsp;&nbsp;<span id="logoutSpan">Logout</span>
+			${sessionScope.loginInfo.memberName }님 반갑습니다.&nbsp;&nbsp;<span id="logoutSpan">Logout</span>&nbsp;&nbsp;
+			<span id="goToCart">장바구니 가기</span>
 		</c:if>
 	</div>
 </div>
@@ -56,7 +57,6 @@ span:hover{
 	          <input type="text" class="form-control" placeholder="Search">
 	        </div>
 	        <button type="submit" class="btn btn-default">Submit</button>&nbsp;&nbsp;
-	        <input type="button" class="btn btn-primary" value="장바구니" onclick="location.href='cartList.sh';">
 	      </div>
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
@@ -229,7 +229,7 @@ span:hover{
 
 
 
-<script src="resources/js/menu.js?ver=48"></script>
+<script src="resources/js/menu.js?ver=4"></script>
 </body>
 </html>
 

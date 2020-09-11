@@ -1,27 +1,29 @@
 $(document).ready(function(){
 	
+	//전체금액 계산
+	setTotalPrice();
 	
 	//제목줄의 체크박스가 클릭되면...
 	$(document).on('click', '#allCheck', function() {
 		//체크박스의 체크유무 확인
-		var isChecked = $('#allCheck').is(':checked');
+		let isChecked = $('#allCheck').is(':checked');
 		
 		if(isChecked){//체크가 되었을 때
-			$('.severalCheck').prop('checked',true);
-			
+			$('.chk').prop('checked',true);
 		}else{
-			$('.severalCheck').prop('checked',false);
+			$('.chk').prop('checked',false);
 		}
 		
+		setTotalPrice();
 	});
 	
 	
 	//하위 체크박스 변경 시 제목줄의 체크박스 변경
-	$(document).on('click', '.severalCheck', function() {
+	$(document).on('click', '.chk', function() {
 		//.chk의 개수
-		var chkCnt = $('.severalCheck').length;
+		let chkCnt = $('.chk').length;
 		//.chk 중에서 체크가 된 노드의 개수
-		var checkedCnt = $('.severalCheck:checked').length;
+		let checkedCnt = $('.chk:checked').length;
 		
 		if(chkCnt == checkedCnt){
 			$('#allCheck').prop('checked',true);
@@ -29,24 +31,40 @@ $(document).ready(function(){
 			$('#allCheck').prop('checked',false);
 		}
 		
+		setTotalPrice();
 	});
 	
-	//총 금액
-	initTotalPrice();
+	//장바구니 비우기 버튼 클릭 시
+	$(document).on('click', '#deleteCartBtn', function(){
+		let checkedCnt = $('.chk:checked').length;
+		let cartIdArr = [];
+		
+		if(checkedCnt == 0){
+			alert('장바구니에서 비울 상품을 선택하세요.');
+			return;
+		}
+		
+		$('.chk:checked').each(function(index, element){
+			cartIdArr[index] = $(element).val();
+		});
+		console.log(cartIdArr);
+		location.href = `deleteCart.sh?cartIdArr=${cartIdArr}`;
+	});
 	
 });
 
 (function($){
 	
-	initTotalPrice = function(){
+	setTotalPrice = function(){
 		
-		var totalPrice = 0;
+		let totalPrice = 0;
 		
-		$('.someTotal').each(function(index, element){
-			totalPrice += +$(element).text();
+		$('.chk:checked').each(function(index, element){
+			totalPrice += +$(element).parent().parent().children().last().text();
+			
 		});
 		
-		$('#totalPrice').text(`${totalPrice} 원`);
+		$('#totalPrice').text(totalPrice);
 	};
 	
 	
