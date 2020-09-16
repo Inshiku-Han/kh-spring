@@ -57,7 +57,7 @@ th, td{
 										<col width="15%">
 										<col width="15%">
 										<col width="9%">
-										<col width="9%">
+										<col width="5%">
 										<col width="7%">
 									</colgroup>
 									<thead>
@@ -83,8 +83,8 @@ th, td{
 												<td>${cart.memberId }(${cart.memberName })</td>
 												<td>${cart.createDate }</td>
 												<td>${cart.goodsPrice }</td>
-												<td>${cart.goodsCnt }</td>
-												<td class="someTotal">${cart.totalPrice }</td>
+												<td><input type="number" class="cntQty" value="${cart.goodsCnt }" min="0" max="100" style="width: 50px;" data-cartId="${cart.cartId }"></td>
+												<td>${cart.totalPrice }</td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -105,7 +105,7 @@ th, td{
 					</div>
 					<div class="col-md-12 text-center">
 						<input type="button" id="deleteCartBtn"  class="btn btn-success" value="장바구니 비우기">
-						<input type="button"  class="btn btn-success" value="구매하기">
+						<input type="button"  id="cartBuyBtn" class="btn btn-success" value="구매하기">
 					</div>
 				</div>
 			</div><!-- 내용 패널 끝 -->		

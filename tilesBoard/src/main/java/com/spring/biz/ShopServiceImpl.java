@@ -87,6 +87,29 @@ public class ShopServiceImpl implements ShopService{
 		sqlSession.delete("deleteCart", cartIdArr);
 	}
 
+	@Override
+	public int updateCartQty(CartVO cartVO) {
+		return sqlSession.update("updateCartQty", cartVO);
+	}
+
+	@Override
+	public List<CartListVO> selectCartBuyList(String[] cartIdArr) {
+		return sqlSession.selectList("selectCartBuyList", cartIdArr);
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void insertBuyList(BuyVO buyVO, String[] cartIdArr) {
+		sqlSession.insert("insertBuyList", buyVO);
+		updateCartIsDelete(cartIdArr);
+	}
+
+	@Override
+	public void updateCartIsDelete(String[] cartIdArr) {
+		sqlSession.update("updateCartIsDelete", cartIdArr);
+		
+	}
+
 	
 }
 

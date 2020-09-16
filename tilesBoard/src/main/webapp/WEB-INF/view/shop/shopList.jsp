@@ -48,7 +48,8 @@
 	</div>
 </div><!-- 회색 패널 끝 -->
 
-<script src="resources/js/shopList.js?ver=5"></script>
+<script src="resources/js/shopList.js?ver=4"></script>
+<script src="resources/js/testJs.js?ver=3"></script>
 </body>
 </html>
 

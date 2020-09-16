@@ -49,7 +49,19 @@ public interface ShopService {
 	
 	//카트에서 빼기
 	void deleteCart(String[] cartIdArr);
-}
+	
+	//카트수량변경
+	int updateCartQty(CartVO cartVO);
+	
+	//장바구니에서 선택한거 구매목록으로
+	List<CartListVO> selectCartBuyList(String[] cartIdArr);
+	
+	//다중 구매
+	void insertBuyList(BuyVO buyVO, String[] cartIdArr);
+	
+	//구매확인 변경
+	void updateCartIsDelete(String[] cartIdArr);
+ }
 
 
 

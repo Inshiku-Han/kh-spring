@@ -1,6 +1,7 @@
 package com.spring.biz.vo;
 
 public class CartListVO extends BaseVO{
+	private int goodsId;
 	private String cartId;
 	private String fileName;
 	private String goodsName;
@@ -10,8 +11,16 @@ public class CartListVO extends BaseVO{
 	private int goodsPrice;
 	private int goodsCnt;
 	private int totalPrice;
+	private int goodsPoint;
+	private int goodsDeliveryPrice;
 	
 	
+	public int getGoodsId() {
+		return goodsId;
+	}
+	public void setGoodsId(int goodsId) {
+		this.goodsId = goodsId;
+	}
 	public String getCartId() {
 		return cartId;
 	}
@@ -66,12 +75,17 @@ public class CartListVO extends BaseVO{
 	public void setTotalPrice(int totalPrice) {
 		this.totalPrice = totalPrice;
 	}
-	@Override
-	public String toString() {
-		return "CartListVO [fileName=" + fileName + ", goodsName=" + goodsName + ", memberId=" + memberId
-				+ ", memberName=" + memberName + ", createDate=" + createDate + ", goodsPrice=" + goodsPrice
-				+ ", goodsCnt=" + goodsCnt + ", totalPrice=" + totalPrice + "]";
+	public int getGoodsPoint() {
+		return goodsPoint;
 	}
-	
+	public void setGoodsPoint(int goodsPoint) {
+		this.goodsPoint = goodsPoint;
+	}
+	public int getGoodsDeliveryPrice() {
+		return goodsDeliveryPrice;
+	}
+	public void setGoodsDeliveryPrice(int goodsDeliveryPrice) {
+		this.goodsDeliveryPrice = goodsDeliveryPrice;
+	}
 	
 }

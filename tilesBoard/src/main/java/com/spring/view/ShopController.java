@@ -1,6 +1,11 @@
 package com.spring.view;
 
 
+
+
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
@@ -10,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.spring.biz.ShopService;
+import com.spring.biz.vo.BuyArrVO;
 import com.spring.biz.vo.BuyVO;
 import com.spring.biz.vo.CartVO;
 import com.spring.biz.vo.GoodsVO;
@@ -98,12 +104,61 @@ public class ShopController {
 		return "shop/cartList";
 	}
 	
+	//장바구니 수량 변경
+	@ResponseBody
+	@RequestMapping(value = "/updateCartQty.sh")
+	public String updateCartQty(CartVO cartVO) {
+		
+		return ""+shopService.updateCartQty(cartVO);
+	}
+	
+	
 	//장바구니로 비우기
 	@RequestMapping(value = "/deleteCart.sh")
 	public String deleteCart(String[] cartIdArr) {
 		
 		shopService.deleteCart(cartIdArr);
 		return "redirect:cartList.sh";
+	}
+	
+	
+	//장바구니에서 구매하기 버튼 클릭 시
+	@RequestMapping(value = "/cartBuyPage.sh")
+	public String cartBuyPage(String[] cartIdArr, Model model) {
+		
+		model.addAttribute("cartBuyList", shopService.selectCartBuyList(cartIdArr));
+		
+		return "shop/cartBuyPage";
+	}
+	
+	//구매페이지에서 여러상품 구매시
+	@RequestMapping(value = "/insertBuyList.sh")
+	public String insertBuyList(BuyArrVO buyArr, BuyVO buyVO, HttpSession session) {
+		List<BuyVO> buyList = new ArrayList<>();
+		MemberVO memberVO = ((MemberVO)session.getAttribute("loginInfo"));
+		
+		//리스트에 BuyVO 추가하기
+		for(int i = 0; i < buyArr.getGoodsId().length; i++) {
+			buyVO.setGoodsId(buyArr.getGoodsId()[i]);
+			buyVO.setGoodsName(buyArr.getGoodsName()[i]);
+			buyVO.setOrderGoodsCnt(buyArr.getOrderGoodsCnt()[i]);
+			buyVO.setOrderPrice(buyArr.getOrderPrice()[i]);
+			
+			buyVO.setMemberId(memberVO.getMemberId());
+			buyVO.setMemberName(memberVO.getMemberName());
+			buyVO.setMemberTel1(memberVO.getTel1());
+			buyVO.setMemberTel2(memberVO.getTel2());
+			buyVO.setMemberAddr(memberVO.getMemberAddr());
+			
+			buyList.add(buyVO);
+		}
+		
+		//buyVO에 있는 List<BuyVO>에 buyList 대입;
+		buyVO.setBuyList(buyList);
+		
+		shopService.insertBuyList(buyVO, buyArr.getCartIdArr());
+		
+		return "redirect:shopList.sh";
 	}
 	
 }
