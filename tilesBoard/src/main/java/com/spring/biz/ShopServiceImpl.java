@@ -13,6 +13,7 @@ import com.spring.biz.vo.CartVO;
 import com.spring.biz.vo.CategoryVO;
 import com.spring.biz.vo.GoodsVO;
 import com.spring.biz.vo.ImageVO;
+import com.spring.biz.vo.SalesVO;
 import com.spring.biz.vo.SearchVO;
 
 @Service("shopService") 
@@ -94,21 +95,28 @@ public class ShopServiceImpl implements ShopService{
 
 	@Override
 	public List<CartListVO> selectCartBuyList(String[] cartIdArr) {
-		return sqlSession.selectList("selectCartBuyList", cartIdArr);
+		return sqlSession.selectList("goodsMapper.selectCartBuyList", cartIdArr);
 	}
 
 	@Override
 	@Transactional(rollbackFor = Exception.class)
 	public void insertBuyList(BuyVO buyVO, String[] cartIdArr) {
-		sqlSession.insert("insertBuyList", buyVO);
+		sqlSession.insert("goodsMapper.insertBuyList", buyVO);
 		updateCartIsDelete(cartIdArr);
 	}
 
 	@Override
 	public void updateCartIsDelete(String[] cartIdArr) {
-		sqlSession.update("updateCartIsDelete", cartIdArr);
+		sqlSession.update("goodsMapper.updateCartIsDelete", cartIdArr);
 		
 	}
+
+	@Override
+	public List<SalesVO> selectSales(String salesDate) {
+		return sqlSession.selectList("selectSales", salesDate);
+	}
+
+	
 
 	
 }

@@ -13,6 +13,7 @@
   <li role="presentation" <c:if test="${memberVO.subMenu eq 'insertItem' }">class="active"</c:if>><a href="insertItem.ad?mainMenu=admin&subMenu=insertItem">상품등록</a></li>
   <li role="presentation" <c:if test="${memberVO.subMenu eq 'manageItem' }">class="active"</c:if>><a href="manageItem.ad?mainMenu=admin&subMenu=manageItem">상품관리</a></li>
   <li role="presentation" <c:if test="${memberVO.subMenu eq 'manageMember' }">class="active"</c:if>><a href="manageMember.ad?mainMenu=admin&subMenu=manageMember">회원관리</a></li>
+  <li role="presentation" <c:if test="${memberVO.subMenu eq 'salesManage' }">class="active"</c:if>><a href="salesManage.ad?mainMenu=admin&subMenu=salesManage">매출관리</a></li>
 </ul>
 </body>
 </html>

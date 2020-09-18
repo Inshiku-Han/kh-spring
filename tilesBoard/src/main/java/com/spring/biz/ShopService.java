@@ -8,6 +8,7 @@ import com.spring.biz.vo.CartVO;
 import com.spring.biz.vo.CategoryVO;
 import com.spring.biz.vo.GoodsVO;
 import com.spring.biz.vo.ImageVO;
+import com.spring.biz.vo.SalesVO;
 import com.spring.biz.vo.SearchVO;
 
 public interface ShopService {
@@ -61,6 +62,10 @@ public interface ShopService {
 	
 	//구매확인 변경
 	void updateCartIsDelete(String[] cartIdArr);
+	
+	//월별 매출
+	List<SalesVO> selectSales(String salesDate);
+	
  }
 
 

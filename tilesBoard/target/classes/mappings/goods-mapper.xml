@@ -72,6 +72,11 @@
 		<result column="GOODS_POINT" 			property="goodsPoint"/>
 		<result column="GOODS_DELIVERY_PRICE" 	property="goodsDeliveryPrice"/>
 	</resultMap>
+	<resultMap type="com.spring.biz.vo.SalesVO" id="sales">
+		<result column="BUY_MONTH"				property="buyMonth"/>
+		<result column="SALES_PER_MONTH"		property="salesPerMonth"/>
+		
+	</resultMap>
 
 	<select id="selectCategoryList" resultMap="category">
 		SELECT CATEGORY_CODE
@@ -132,7 +137,7 @@
 			, FILE_NAME
 		FROM SHOPPING_GOODS G, SHOPPING_IMAGE I
 		WHERE G.GOODS_ID = I.GOODS_ID
-		AND IMAGE_ID LIKE '%'||'1'
+		AND IMAGE_ID LIKE '%1'
 		<if test="categoryCode != 0">
 		AND CATEGORY_CODE = #{categoryCode}
 		</if>
@@ -148,7 +153,7 @@
 		    , GOODS_POINT
 		FROM SHOPPING_GOODS G, SHOPPING_IMAGE I
 		WHERE G.GOODS_ID = I.GOODS_ID
-		AND IMAGE_ID LIKE '%'||'1'
+		AND IMAGE_ID LIKE '%1'
 		AND G.GOODS_ID = #{goodsId}
 	</select>
 	
@@ -156,7 +161,7 @@
 		SELECT FILE_NAME 
 		FROM SHOPPING_IMAGE
 		WHERE GOODS_ID = #{goodsId}
-		AND IMAGE_ID NOT LIKE '%'||'1'
+		AND IMAGE_ID NOT LIKE '%1'
 	</select>
 
 	<insert id="insertBuy">
@@ -252,7 +257,7 @@
 		WHERE C.GOODS_ID = I.GOODS_ID
 		AND C.GOODS_ID = G.GOODS_ID
 		AND C.MEMBER_ID = M.MEMBER_ID
-		AND IMAGE_ID LIKE '%'||'1'
+		AND IMAGE_ID LIKE '%1'
 		AND C.MEMBER_ID = #{memberId}
 		AND C.IS_DELETE = 'N'
 	</select>
@@ -332,9 +337,13 @@
 			#{cartId}
 		</foreach>
 	</update>
-	
-	
-	
+
+	<select id="selectSales" resultMap="sales">
+		SELECT TO_CHAR(BUY_DATE, 'MM') BUY_MONTH, SUM(ORDER_PRICE) SALES_PER_MONTH
+		FROM SHOPPING_BUY
+		WHERE TO_CHAR(BUY_DATE, 'YYYY') = #{salesDate}
+		GROUP BY TO_CHAR(BUY_DATE, 'MM')
+	</select>
 	
 	
 	

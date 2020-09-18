@@ -47,7 +47,7 @@ span:hover{
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
 	        <li <c:if test="${goodsVO.mainMenu eq 'shopping' }">class="active"</c:if> ><a href="shopList.sh?mainMenu=shopping&subMenu=allCategory">쇼핑하기 <span class="sr-only">(current)</span></a></li>
-	        <li <c:if test="${memberVO.mainMenu eq 'member' }">class="active"</c:if>><a href="selectMember.me?mainMenu=member&subMenu=selectMember">내정보관리</a></li>
+	        <li <c:if test="${memberVO.mainMenu eq 'member' }">class="active"</c:if>><a href="selectBuyList.me?mainMenu=member&subMenu=selectBuyList">내정보관리</a></li>
 	        <%-- <c:if test="${sessionScope.loginInfo.memberType eq 4 }"> --%>
 		        <li <c:if test="${memberVO.mainMenu eq 'admin' }">class="active"</c:if>><a href="manageBuy.ad?mainMenu=admin&subMenu=manageBuy">관리자메뉴</a></li>
 	        <%-- </c:if> --%>
