@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 맵퍼파일 생성 후 반드시 sql-map-config.xml 파일에 mapper 등록해줘야 함 -->
+<mapper namespace="memberMapper">
+	<resultMap type="com.spring.biz.vo.MemberVO" id="member">
+		<result column="MEMBER_ID" 			property="memberId"/>
+		<result column="MEMBER_PASSWORD" 	property="memberPassword"/>
+		<result column="MEMBER_NAME" 		property="memberName"/>
+		<result column="MEMBER_GENDER" 		property="memberGender"/>
+		<result column="TEL1" 				property="tel1"/>
+		<result column="TEL2" 				property="tel2"/>
+		<result column="EMAIL" 				property="email"/>
+		<result column="SMS_YN" 			property="smsYn"/>
+		<result column="EMAIL_YN" 			property="emailYn"/>
+		<result column="BIRTHDAY_YEAR" 		property="birthdayYear"/>
+		<result column="BIRTHDAY_MONTH" 	property="birthdayMonth"/>
+		<result column="BIRTHDAY_DAY" 		property="birthdayDay"/>
+		<result column="MEMBER_ADDR" 		property="memberAddr"/>
+		<result column="JOIN_DATE" 			property="joinDate"/>
+		<result column="DEL_YN" 			property="delYn"/>
+		<result column="MEMBER_TYPE" 		property="memberType"/>
+	</resultMap>
+	
+	<resultMap type="com.spring.biz.vo.BuyListByDateVO" id="buyListByDate">
+		<result column="ORDER_NUM" 			property="orderNum"/>
+		<result column="GOODS_NAME" 		property="goodsName"/>
+		<result column="FILE_NAME" 			property="fileName"/>
+		<result column="GOODS_PRICE" 		property="goodsPrice"/>
+		<result column="ORDER_GOODS_CNT" 	property="orderGoodsCnt"/>
+		<result column="ORDER_PRICE" 		property="orderPrice"/>
+	</resultMap>
+	
+	
+		
+	
+	<insert id="insertMember">
+		INSERT INTO SHOPPING_MEMBER (
+			MEMBER_ID
+			, MEMBER_PASSWORD
+			, MEMBER_NAME
+			, MEMBER_GENDER
+			, TEL1
+			, TEL2
+			, EMAIL
+			, SMS_YN
+			, EMAIL_YN
+			, BIRTHDAY_YEAR
+			, BIRTHDAY_MONTH
+			, BIRTHDAY_DAY
+			, MEMBER_ADDR
+		) VALUES (
+			#{memberId}
+			, #{memberPassword}
+			, #{memberName}
+			, #{memberGender}
+			, #{tel1}
+			, #{tel2}
+			, #{email}
+			, #{smsYn}
+			, #{emailYn}
+			, #{birthdayYear}
+			, #{birthdayMonth}
+			, #{birthdayDay}
+			, #{memberAddr}
+		)
+	</insert>
+	
+	<select id="login" resultMap="member">
+		SELECT MEMBER_ID
+			, MEMBER_NAME
+			, MEMBER_TYPE
+			, TEL1
+			, TEL2
+			, MEMBER_ADDR
+		FROM SHOPPING_MEMBER
+		WHERE MEMBER_ID = #{memberId}
+		AND MEMBER_PASSWORD = #{memberPassword}
+	</select>
+	
+	<select id="selectBuyDateList" resultType="String">
+		SELECT DISTINCT TO_CHAR(BUY_DATE, 'YYYY-MM-DD') AS BUY_DATE
+		FROM SHOPPING_BUY
+		WHERE MEMBER_ID = #{memberId}
+		ORDER BY BUY_DATE DESC
+	</select>
+	
+	<select id="selectBuyListByDate" resultMap="buyListByDate">
+		SELECT B.ORDER_NUM 
+			, G.GOODS_NAME
+			, I.FILE_NAME
+			, G.GOODS_PRICE
+			, B.ORDER_GOODS_CNT
+			, B.ORDER_PRICE
+		FROM SHOPPING_BUY B, SHOPPING_IMAGE I, SHOPPING_GOODS G
+		WHERE B.GOODS_ID = I.GOODS_ID
+			AND B.GOODS_ID = G.GOODS_ID
+			AND TO_CHAR(B.BUY_DATE, 'YYYY-MM-DD') = #{buyDate}
+			AND B.MEMBER_ID = #{memberId}
+			AND IMAGE_ID LIKE '%1'
+		ORDER BY GOODS_NAME
+	</select>
+	
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

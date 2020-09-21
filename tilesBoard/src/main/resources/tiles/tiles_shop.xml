@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+	<definition name="baseLayout" template="/WEB-INF/view/common/template.jsp">
+		<put-attribute name="title" value="Shop"/>
+		<put-attribute name="menu" value="/WEB-INF/view/common/menu.jsp"/>
+		<put-attribute name="side" value=""/>
+		<put-attribute name="body" value=""/>
+	</definition>
+	
+	<definition name="shop/*" extends="baseLayout">
+		<put-attribute name="side" value="/WEB-INF/view/common/shop_side.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/view/shop/{1}.jsp" />
+	</definition>
+	
+	<definition name="member/*" extends="baseLayout">
+		<put-attribute name="side" value="/WEB-INF/view/common/member_side.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/view/member/{1}.jsp" />
+	</definition>
+	
+	<definition name="admin/*" extends="baseLayout">
+		<put-attribute name="side" value="/WEB-INF/view/common/admin_side.jsp"/>
+		<put-attribute name="body" value="/WEB-INF/view/admin/{1}.jsp" />
+	</definition>
+	
+	
+</tiles-definitions>
+
+
+
+
+
+
+
+
+
