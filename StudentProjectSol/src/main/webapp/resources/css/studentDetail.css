@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+table, tr, td {
+	border: 1px solid black;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input{
+	text-align: center;
+}
