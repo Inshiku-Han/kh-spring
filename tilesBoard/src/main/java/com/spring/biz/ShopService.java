@@ -63,8 +63,11 @@ public interface ShopService {
 	//구매확인 변경
 	void updateCartIsDelete(String[] cartIdArr);
 	
-	//월별 매출
+	//년별 매출
 	List<SalesVO> selectSales(String salesDate);
+	
+	//월별 매출
+	List<SalesVO> selectSalesListPerMonth(String yearMonth);
 	
  }
 

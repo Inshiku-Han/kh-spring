@@ -6,6 +6,20 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+#scrollDiv{
+	overflow:auto;
+	overflow-x:hidden;
+	height:440px;
+}
+#salesPerDayDiv{
+	height: 36px;
+}
+.salesMonth:hover {
+	cursor: pointer;
+}
+
+</style>
 </head>
 <body>
 	<div class="col-md-12 text-center">
@@ -28,19 +42,22 @@
 						<td>매출액</td>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="leftTbody">
 					<c:forEach items="${resultList }" var="sales">
 						<tr>
-							<td>${sales.buyMonth }</td>
+							<td class="salesMonth">${sales.buyMonth }</td>
 							<td>${sales.salesPerMonth }</td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 		</div>
-		<div class="col-md-6 text-center">우</div>
+		<div class="col-md-6 text-center">
+			<div id="salesPerDayDiv"></div>
+			<div id="scrollDiv"></div>
+		</div>
 	</div>
 
-	<script src="resources/js/salesManage.js?ver=10"></script>
+	<script src="resources/js/salesManage.js?ver=3"></script>
 </body>
 </html>

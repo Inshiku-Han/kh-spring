@@ -116,6 +116,11 @@ public class ShopServiceImpl implements ShopService{
 		return sqlSession.selectList("selectSales", salesDate);
 	}
 
+	@Override
+	public List<SalesVO> selectSalesListPerMonth(String yearMonth) {
+		return sqlSession.selectList("selectSalesListPerMonth", yearMonth);
+	}
+
 	
 
 	

@@ -2,6 +2,7 @@ package com.spring.view;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
@@ -113,10 +114,8 @@ public class AdminController {
 	@RequestMapping(value = "/salesManage.ad")
 	public String salesManage(MemberVO memberVO, Model model) {
 		
-		String salesDate = "2020";
-		
 		// 실제 매출이 발생한 월별 매출액 리스트
-		List<SalesVO> salesList = shopService.selectSales(salesDate);
+		List<SalesVO> salesList = shopService.selectSales("2020");
 
 		// 1~12월까지 정리된 매출액 리스트
 		List<SalesVO> resultList = new ArrayList<>();
@@ -173,6 +172,55 @@ public class AdminController {
 			}
 		}
 
+		return resultList;
+	}
+	
+	//월별 매출
+	@ResponseBody
+	@RequestMapping(value = "/monthAjax.ad")
+	public List<SalesVO> monthAjax(String yearMonth) {
+		//실제 매출이 발생한 일자와 해당 일자의 매출액 합계 list
+		List<SalesVO> salesList = shopService.selectSalesListPerMonth(yearMonth);
+		
+		//해당 월의 1일부터 마지막 일자까지의 데이터가 담긴 변수
+		List<SalesVO> resultList = new ArrayList<>();
+		
+		//선택한 월의 마지막 일자 구하기
+		Calendar cal = Calendar.getInstance();
+		
+		int year = Integer.parseInt(yearMonth.substring(0, 4));
+		int month = Integer.parseInt(yearMonth.substring(4, 6));
+		
+		cal.set(year, month-1, 1);
+		
+		int lastDay = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+		
+		//1일~마지막일까지 데이터 세팅
+		int index = 0;
+		for (int i = 0; i < lastDay; i++) {
+			SalesVO vo = new SalesVO();
+			String changedDay = String.format("%02d", i + 1);
+			vo.setBuyDay(changedDay);
+
+			
+			if (salesList.size() != 0 && salesList != null) {
+				if (changedDay.equals(salesList.get(index).getBuyDay())) {
+					vo.setSalesPerDay(salesList.get(index).getSalesPerDay());
+					if(index + 1 < salesList.size()) {
+						index++;
+					}
+				} else {
+					vo.setSalesPerDay(0);
+				}
+			} else {
+				vo.setSalesPerDay(0);
+			}
+
+			resultList.add(vo);
+		}
+		
+		
+		
 		return resultList;
 	}
 

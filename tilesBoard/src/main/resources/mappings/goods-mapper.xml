@@ -75,6 +75,8 @@
 	<resultMap type="com.spring.biz.vo.SalesVO" id="sales">
 		<result column="BUY_MONTH"				property="buyMonth"/>
 		<result column="SALES_PER_MONTH"		property="salesPerMonth"/>
+		<result column="BUY_DAY"				property="buyDay"/>
+		<result column="SALES_PER_DAY"			property="salesPerDay"/>
 		
 	</resultMap>
 
@@ -345,7 +347,14 @@
 		GROUP BY TO_CHAR(BUY_DATE, 'MM')
 	</select>
 	
-	
+	<select id="selectSalesListPerMonth" resultMap="sales">
+		SELECT	SUBSTR(TO_CHAR(BUY_DATE, 'YYYYMMDD'), -2, 2) AS BUY_DAY
+		    , SUM(ORDER_PRICE) AS SALES_PER_DAY
+		FROM SHOPPING_BUY
+		WHERE TO_CHAR(BUY_DATE, 'YYYYMM') = #{yearMonth}
+		GROUP BY TO_CHAR(BUY_DATE, 'YYYYMMDD')
+		ORDER BY TO_CHAR(BUY_DATE, 'YYYYMMDD')
+	</select>
 	
 	
 </mapper>
