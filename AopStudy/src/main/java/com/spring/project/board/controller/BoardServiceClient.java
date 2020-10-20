@@ -1,6 +1,7 @@
 package com.spring.project.board.controller;
 
 
+
 import java.util.List;
 
 import org.springframework.context.support.AbstractApplicationContext;
@@ -16,16 +17,20 @@ public class BoardServiceClient {
 		BoardService service = (BoardService)container.getBean("boardService");
 		
 		BoardVO boardVO = new BoardVO();
-		boardVO.setTitle("제목");
-		boardVO.setWriter("작성자");
-		boardVO.setContent("내용");
+//		boardVO.setTitle("제목");
+//		boardVO.setWriter("작성자");
+//		boardVO.setContent("내용");
+//		
+//		service.insertBoard(boardVO);
 		
-		service.insertBoard(boardVO);
 		List<BoardVO> list = service.selectBoardList();
 		list.forEach(t -> System.out.println(t));
 		
-		
-		
-		container.close();
+//		boardVO = new BoardVO();
+//		boardVO.setBoardNum(1);
+//		service.selectBoard(boardVO);
+//		
+//		
+//		container.close();
 	}
 }
