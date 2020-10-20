@@ -26,11 +26,11 @@ public class BoardServiceClient {
 		List<BoardVO> list = service.selectBoardList();
 		list.forEach(t -> System.out.println(t));
 		
-//		boardVO = new BoardVO();
-//		boardVO.setBoardNum(1);
-//		service.selectBoard(boardVO);
-//		
-//		
-//		container.close();
+		boardVO = new BoardVO();
+		boardVO.setBoardNum(1);
+		service.selectBoard(boardVO);
+		
+		
+		container.close();
 	}
 }

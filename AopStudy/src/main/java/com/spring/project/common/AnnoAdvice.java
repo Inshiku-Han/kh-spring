@@ -3,9 +3,9 @@ package com.spring.project.common;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StopWatch;
 
@@ -13,30 +13,24 @@ import com.spring.project.board.vo.BoardVO;
 
 @Service("adivce")
 @Aspect //포인트컷 + 어드바이스
-public class AnnoAdvice {
-	//클래스에서 aop 설정하는 스타일
-	@Pointcut("execution(* com.spring.project.board.service.*Impl.*(..))")
-	public void allPointcut() {};
+public class AnnoAdvice{
 	
-	@Pointcut("execution(void com.spring.project.board.service.*Impl.*(..))")
-	public void updatePointcut() {};
-	
-	@Pointcut("execution(* com.spring.project.board.service.select*Impl.*(..))")
-	public void selectPointcut() {};
 	
 	// 매개변수로 필요한 데이터가 제대로 매핑되어있는지 확인.
-	@Before("allPointcut()")
+	@Before("CommonPointcut.allPointcut()")
 	public void beforeLog(JoinPoint jp) {
 		// signature -> 실제 호출되는 메소드의 리턴타입, 이름, 매개변수 정보
 		String methodName = jp.getSignature().getName();
 		// 호출되는 메소드에 사용되는 매개변수의 정보를 받아 옴.
 		Object[] args = jp.getArgs();
-		System.out.println("\n[사전 처리]" + methodName + "() ARGS 정보 : " + args[0].toString());
+		if(args.length != 0) {
+			System.out.println("\n[사전 처리]" + methodName + "() ARGS 정보 : " + args[0].toString());
+		}
 
 	}
 
 	// after-returning
-	@AfterReturning(pointcut = "selectPointcut()", returning = "returnObj")
+	@AfterReturning(pointcut = "CommonPointcut.selectPointcut()", returning = "returnObj")
 	public void afterSelectLog(JoinPoint jp, Object returnObj) {
 		String methodName = jp.getSignature().getName();
 
@@ -47,7 +41,8 @@ public class AnnoAdvice {
 		}
 		System.out.println("[사후 처리] 데이터 조회 완료\n");
 	}
-
+	
+	@Around("CommonPointcut.selectPointcut()")
 	public Object aroundLog(ProceedingJoinPoint pjp) throws Throwable {
 		System.out.println("[BEFORE] - 메소드 실행 전 처리");
 		String methodName = pjp.getSignature().getName();

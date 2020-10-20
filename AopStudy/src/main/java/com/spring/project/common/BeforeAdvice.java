@@ -13,7 +13,9 @@ public class BeforeAdvice {
 		String methodName = jp.getSignature().getName();
 		//호출되는 메소드에 사용되는 매개변수의 정보를 받아 옴.
 		Object[] args = jp.getArgs();
-		System.out.println("\n[사전 처리]" + methodName + "() ARGS 정보 : " + args[0].toString() );
+		if(args.length != 0) {
+			System.out.println("\n[사전 처리]" + methodName + "() ARGS 정보 : " + args[0].toString() );
+		}
 		
 		
 	}
